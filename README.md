@@ -214,25 +214,3 @@ curl http://localhost:3000/shorten/abc123/stats
 # Delete URL
 curl -X DELETE http://localhost:3000/shorten/abc123
 ```
-
-## 🔧 Development
-
-### Running Tests
-
-```bash
-bun test
-```
-
-### Building for Production
-
-```bash
-bun build
-```
-
-## 📄 License
-
-MIT
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.

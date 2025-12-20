@@ -28,7 +28,7 @@ Priority: HIGH
      - Validates URL format
      - Returns 201 on success, 400 on invalid input
    - Story Points: 5
-   - Status: ✅ Completed
+   - Status: [x] Completed
 
 2. **As a user, I want to retrieve the original URL from a short code**
 
@@ -37,7 +37,7 @@ Priority: HIGH
      - Returns 200 on success, 404 if not found
      - Increments access counter
    - Story Points: 3
-   - Status: ✅ Completed
+   - Status: [x] Completed
 
 3. **As a user, I want to update an existing short URL**
 
@@ -47,7 +47,7 @@ Priority: HIGH
      - Updates `updatedAt` timestamp
      - Returns 200 on success, 404 if not found, 400 on invalid input
    - Story Points: 3
-   - Status: ✅ Completed
+   - Status: [x] Completed
 
 4. **As a user, I want to delete a short URL**
 
@@ -55,7 +55,7 @@ Priority: HIGH
      - DELETE `/shorten/:shortCode` removes entry
      - Returns 204 on success, 404 if not found
    - Story Points: 2
-   - Status: ✅ Completed
+   - Status: [x] Completed
 
 5. **As a user, I want to view statistics for my short URLs**
    - Acceptance Criteria:
@@ -63,7 +63,7 @@ Priority: HIGH
      - Includes all URL metadata
      - Returns 200 on success, 404 if not found
    - Story Points: 3
-   - Status: ✅ Completed
+   - Status: [x] Completed
 
 ### Epic 2: Frontend Development
 
@@ -76,7 +76,7 @@ Priority: MEDIUM
      - Displays generated short code
      - Shows full short URL for copying
    - Story Points: 5
-   - Status: ✅ Completed
+   - Status: [x] Completed
 
 7. **As a user, I want to see all my created short URLs**
 
@@ -85,7 +85,7 @@ Priority: MEDIUM
      - Shows original URL, short code, and stats
      - Includes edit and delete actions
    - Story Points: 5
-   - Status: 🔄 In Progress
+   - Status: [ ] In Progress
 
 8. **As a user, I want automatic redirects from short URLs**
    - Acceptance Criteria:
@@ -93,7 +93,7 @@ Priority: MEDIUM
      - Increments access counter
      - Handles 404 gracefully
    - Story Points: 3
-   - Status: ✅ Completed
+   - Status: [x] Completed
 
 ### Epic 3: Data Persistence & Enhancement
 
@@ -106,7 +106,7 @@ Priority: LOW
      - Implement proper migrations
      - Maintain API compatibility
    - Story Points: 8
-   - Status: 📝 Planned
+   - Status: [ ] Planned
 
 10. **As a user, I want custom short codes**
 
@@ -115,7 +115,7 @@ Priority: LOW
       - Validates uniqueness
       - Falls back to random generation if taken
     - Story Points: 3
-    - Status: 📝 Planned
+    - Status: [ ] Planned
 
 11. **As a user, I want expiration dates for short URLs**
     - Acceptance Criteria:
@@ -123,7 +123,7 @@ Priority: LOW
       - Returns 410 Gone after expiration
       - Automatic cleanup of expired URLs
     - Story Points: 5
-    - Status: 📝 Planned
+    - Status: [ ] Planned
 
 ## 🏃 Sprint Planning
 
@@ -133,14 +133,14 @@ Priority: LOW
 
 **Sprint Backlog:**
 
-- ✅ Set up project structure
-- ✅ Implement POST `/shorten` endpoint
-- ✅ Implement GET `/shorten/:shortCode` endpoint
-- ✅ Implement PUT `/shorten/:shortCode` endpoint
-- ✅ Implement DELETE `/shorten/:shortCode` endpoint
-- ✅ Implement GET `/shorten/:shortCode/stats` endpoint
-- ✅ Add input validation
-- ✅ Add error handling
+- [x] Set up project structure
+- [ ] Implement POST `/shorten` endpoint
+- [ ] Implement GET `/shorten/:shortCode` endpoint
+- [ ] Implement PUT `/shorten/:shortCode` endpoint
+- [ ] Implement DELETE `/shorten/:shortCode` endpoint
+- [ ] Implement GET `/shorten/:shortCode/stats` endpoint
+- [ ] Add input validation
+- [ ] Add error handling
 
 **Sprint Review:**
 
@@ -154,13 +154,13 @@ Priority: LOW
 
 **Sprint Backlog:**
 
-- ✅ Create basic HTML structure
-- ✅ Implement URL creation form
-- ✅ Display generated short codes
-- 🔄 Create URL list/management view
-- ✅ Add styling and responsive design
-- ✅ Implement redirect functionality
-- 🔄 Add copy-to-clipboard feature
+- [ ] Create basic HTML structure
+- [ ] Implement URL creation form
+- [ ] Display generated short codes
+- [ ] Create URL list/management view
+- [ ] Add styling and responsive design
+- [ ] Implement redirect functionality
+- [ ] Add copy-to-clipboard feature
 
 **Current Status:** In Progress
 
@@ -170,12 +170,12 @@ Priority: LOW
 
 **Sprint Backlog:**
 
-- 📝 Integrate database (SQLite/PostgreSQL)
-- 📝 Add custom short codes
-- 📝 Implement URL expiration
-- 📝 Add rate limiting
-- 📝 Add analytics dashboard
-- 📝 Implement user authentication
+- [ ] Integrate database (SQLite/PostgreSQL)
+- [ ] Add custom short codes
+- [ ] Implement URL expiration
+- [ ] Add rate limiting
+- [ ] Add analytics dashboard
+- [ ] Implement user authentication
 
 ## 📈 Metrics & KPIs
 
