@@ -7,8 +7,9 @@ const urlRouter = async ({
   urlController: UrlController;
 }) => {
   const router = Router();
-  console.log('aqui 2');
+
   router.get('/', urlController.getAllURLs);
+  router.post('/', urlController.createURL);
 
   return router;
 };

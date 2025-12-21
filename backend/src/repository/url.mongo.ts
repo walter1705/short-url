@@ -33,7 +33,16 @@ const URLModel = mongoose.model('url', urlMongoSchema);
 export default class UrlMongoRepository {
   constructor() {}
 
-  async getAllURLs(): Promise<url[]> {
+  getAllURLs = async (): Promise<url[]> => {
     return await URLModel.find();
-  }
+  };
+
+  createURL = async ({ url, shortCode, timesVisited }: url) => {
+    const save = URLModel.insertOne({ url, shortCode, timesVisited });
+    return await save;
+  };
+
+  shortCodeExist = async ({ shortCode }: { shortCode: string }) => {
+    return await URLModel.exists({ shortCode });
+  };
 }
