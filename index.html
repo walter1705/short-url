@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -57,62 +57,74 @@
       <section class="url-form-section" aria-labelledby="form-heading">
         <h2 id="form-heading" class="visually-hidden">Create Short URL</h2>
 
-        <form id="shortenForm" class="shorten-form" novalidate>
-          <div class="form-group">
-            <label for="urlInput" class="visually-hidden"
-              >Enter your long URL</label
-            >
-            <input
-              type="url"
-              id="urlInput"
-              name="url"
-              class="url-input"
-              placeholder="Enter your long URL here..."
-              required
-              aria-required="true"
-              aria-describedby="url-hint url-error"
-            />
-            <span id="url-hint" class="input-hint"
-              >Example: https://www.example.com/very/long/url</span
-            >
-            <span
-              id="url-error"
-              class="error-message"
-              role="alert"
-              aria-live="polite"
-            ></span>
-          </div>
-
-          <button type="submit" class="submit-button" aria-label="Shorten URL">
-            Shorten URL
+        <div class="tabs">
+          <button class="tab-button active" data-tab="create-tab">
+            Create
           </button>
-        </form>
+          <button class="tab-button" data-tab="urls-tab">My URLs</button>
+        </div>
 
-        <!-- Result Section (Hidden by default, shown after API call) -->
-        <div
-          id="resultSection"
-          class="result-section"
-          style="display: none"
-          aria-live="polite"
-        >
-          <h3>Your Shortened URL:</h3>
-          <div class="result-container">
-            <input
-              type="text"
-              id="shortUrlResult"
-              class="short-url-result"
-              readonly
-              aria-label="Shortened URL result"
-            />
+        <!-- CREATE TAB -->
+        <div id="create-tab" class="tab-content">
+          <form id="shortenForm" class="shorten-form" novalidate>
+            <div class="form-group">
+              <label for="urlInput" class="visually-hidden"
+                >Enter your long URL</label
+              >
+              <input
+                type="url"
+                id="urlInput"
+                name="url"
+                class="url-input"
+                placeholder="Enter your long URL here..."
+                required
+                aria-required="true"
+                aria-describedby="url-hint url-error"
+              />
+              <span id="url-hint" class="input-hint"
+                >Example: https://www.example.com/very/long/url</span
+              >
+              <span
+                id="url-error"
+                class="error-message"
+                role="alert"
+                aria-live="polite"
+              ></span>
+            </div>
+
             <button
-              id="copyButton"
-              class="copy-button"
-              aria-label="Copy shortened URL to clipboard"
+              type="submit"
+              class="submit-button"
+              aria-label="Shorten URL"
             >
-              Copy
+              Shorten URL
             </button>
+          </form>
+
+          <div
+            id="resultSection"
+            class="result-section"
+            style="display: none"
+            aria-live="polite"
+          >
+            <h3>Your Shortened URL:</h3>
+            <div class="result-container">
+              <input
+                type="text"
+                id="shortUrlResult"
+                class="short-url-result"
+                readonly
+              />
+              <button id="copyButton" class="copy-button">Copy</button>
+            </div>
+            <p class="success-message">✓ Short URL created successfully!</p>
           </div>
-          <p class="success-message">✓ Short URL created successfully!</p>
+        </div>
+
+        <!-- URLS LIST TAB -->
+        <div id="urls-tab" class="tab-content" style="display: none">
+          <div id="loading-spinner" class="spinner" style="display: none"></div>
+          <div id="urls-list" class="urls-list"></div>
         </div>
       </section>
     </main>

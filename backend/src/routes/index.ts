@@ -5,6 +5,8 @@ import UrlController from '../controller/url.controller.js';
 const urlController = new UrlController();
 const router = Router();
 
-router.use('/shorten', await urlRouter({ urlController }));
+router.get('/health', urlController.health);
+router.use('/urls', await urlRouter({ urlController }));
+router.get('/:code', urlController.redirect);
 
 export default router;

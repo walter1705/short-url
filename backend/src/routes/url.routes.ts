@@ -8,8 +8,10 @@ const urlRouter = async ({
 }) => {
   const router = Router();
 
-  router.get('/', urlController.getAllURLs);
-  router.post('/', urlController.createURL);
+  router.get('/', urlController.getAllUrls);
+  router.post('/', urlController.createUrl);
+  router.get('/:code', urlController.getUrl);
+  router.delete('/:code', urlController.deleteUrl);
 
   return router;
 };

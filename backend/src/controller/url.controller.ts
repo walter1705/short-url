@@ -1,58 +1,97 @@
-import UrlMongoRepository from '../repository/url.mongo.js';
-import z from 'zod';
-import urlSchema, { url } from '../model/url.js';
 import { Request, Response } from 'express';
-import { mongo } from 'mongoose';
-import { ur } from 'zod/v4/locales';
+import UrlService from '../service/url.service.js';
+import { createUrlSchema } from '../model/url.js';
 
 export default class UrlController {
-  private mongoRepository: UrlMongoRepository;
+  private service: UrlService;
 
   constructor() {
-    this.mongoRepository = new UrlMongoRepository();
+    this.service = new UrlService();
   }
 
-  getAllURLs = async (req: Request, res: Response): Promise<void> => {
+  createUrl = async (req: Request, res: Response): Promise<void> => {
     try {
-      const data: url[] = await this.mongoRepository.getAllURLs();
-      res.status(200).json(data);
-    } catch (e) {
-      res
-        .status(500)
-        .json({ message: e instanceof Error ? e.message : String(e) });
+      const validation = createUrlSchema.safeParse(req.body);
+      if (!validation.success) {
+        res
+          .status(400)
+          .json({
+            error: 'Invalid request',
+            details: validation.error.flatten(),
+          });
+        return;
+      }
+      const url = await this.service.createUrl(validation.data);
+      res.status(201).json(url);
+    } catch (error: any) {
+      this.handleError(res, error);
     }
   };
 
-  createURL = async (req: Request, res: Response): Promise<void> => {
-    const { url, shortCode } = req.body;
-
+  getUrl = async (req: Request, res: Response): Promise<void> => {
     try {
-      const urlParsed = urlSchema.safeParse({ url, shortCode });
-
-      if (!urlParsed.success) {
-        res.status(420).json({ message: urlParsed.error });
-        return;
-      }
-
-      const shortCodeExist = await this.mongoRepository.shortCodeExist({
-        shortCode,
-      });
-
-      if (shortCodeExist) {
-        res.status(422).json({ message: 'shortCode already taken.' });
-        return;
-      }
-
-      const createdUrl = await this.mongoRepository.createURL({
-        ...urlParsed.data,
-        timesVisited: 0,
-      });
-
-      res.status(204).json(createdUrl);
-    } catch (e) {
-      res
-        .status(500)
-        .json({ message: e instanceof Error ? e.message : String(e) });
+      const url = await this.service.getUrl(req.params.code);
+      res.status(200).json(url);
+    } catch (error: any) {
+      this.handleError(res, error);
     }
   };
+
+  redirect = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const originalUrl = await this.service.resolveUrl(req.params.code);
+      res.status(301).redirect(originalUrl);
+    } catch (error: any) {
+      this.handleError(res, error);
+    }
+  };
+
+  deleteUrl = async (req: Request, res: Response): Promise<void> => {
+    try {
+      await this.service.deleteUrl(req.params.code);
+      res.status(204).send();
+    } catch (error: any) {
+      this.handleError(res, error);
+    }
+  };
+
+  getAllUrls = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 20;
+      const result = await this.service.getAllUrls(page, limit);
+      res.status(200).json({
+        data: result.data,
+        pagination: {
+          total: result.total,
+          page: result.page,
+          limit: result.limit,
+          pages: Math.ceil(result.total / result.limit),
+        },
+      });
+    } catch (error: any) {
+      this.handleError(res, error);
+    }
+  };
+
+  health = async (req: Request, res: Response): Promise<void> => {
+    try {
+      res.status(200).json({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+      });
+    } catch (error) {
+      res.status(503).json({ status: 'unhealthy' });
+    }
+  };
+
+  private handleError(res: Response, error: any): void {
+    if (error.status) {
+      res.status(error.status).json({ error: error.message });
+    } else {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
 }
